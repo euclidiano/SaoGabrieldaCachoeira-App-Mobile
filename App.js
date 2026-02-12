@@ -7,6 +7,7 @@ import Login from './screens/Login';
 import Catequese from './screens/CadCat';
 import PainelAdmin from './screens/PainelAdm';
 import Versiculo from './screens/versiculo.js'
+import Link from './screens/Link.js'
 
 const Stack = createNativeStackNavigator();
 
@@ -35,14 +36,19 @@ export default function App() {
           options={{ title: 'Painel do Admin' }}
         />
         <Stack.Screen
-          name="cat"
-          component={Catequese}
-          options={{ title: 'Cadastro da Catequese' }}
-        />
-        <Stack.Screen
           name="ver"
           component={Versiculo}
           options={{ title: 'Versiculos' }}
+        />
+        <Stack.Screen
+          name="link"
+          component={Link}
+          options={{ title: 'Adicionar Link' }}
+        />
+        <Stack.Screen
+          name="cat"
+          component={Catequese}
+          options={{ title: 'Cadastro da Catequese' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
