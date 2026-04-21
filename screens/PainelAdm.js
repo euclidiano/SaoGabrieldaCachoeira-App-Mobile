@@ -142,7 +142,7 @@ export default function PainelAdmin() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.safeAreaBox}>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
+
 
 
           <Text style={styles.paragraph}>Usuários</Text>
@@ -171,6 +171,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Novo usuario"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                     autoCapitalize="none"
                   />
@@ -185,6 +186,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Nova senha"
+                    placeholderTextColor="#888888"
                     secureTextEntry
                     style={styles.input}
                   />
@@ -276,6 +278,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Nome"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                   />
 
@@ -289,6 +292,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="DDN"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                   />
 
@@ -302,6 +306,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Endereço"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                   />
 
@@ -315,6 +320,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Responsáveis"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                   />
 
@@ -328,6 +334,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Sacramento"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                   />
 
@@ -341,6 +348,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Telefone"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                     keyboardType="phone-pad"
                   />
@@ -355,6 +363,7 @@ export default function PainelAdmin() {
                       }))
                     }
                     placeholder="Idade"
+                    placeholderTextColor="#888888"
                     style={styles.input}
                     keyboardType="numeric"
                   />
@@ -410,7 +419,7 @@ export default function PainelAdmin() {
               );
             }}
           />
-        </ScrollView>
+
       </SafeAreaView>
     </SafeAreaProvider>
   );

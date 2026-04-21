@@ -32,7 +32,7 @@ export default function Login({ navigation }) {
       });
 
       if (usuarioEncontrado) {
-        const role = (usuario === 'adm' && senha === '123') ? 'admin' : 'usuario';
+        const role = (usuario === 'adm' && senha === '123c@m456') ? 'admin' : 'usuario';
         navigation.navigate('feed', { role });
       } else {
         Alert.alert('Erro', 'Usuario ou senha incorretos');
@@ -60,15 +60,16 @@ export default function Login({ navigation }) {
           <View style={styles.container}>
             <TextInput
               placeholder="Usuário"
+              placeholderTextColor="#888888"
               style={styles.input}
               value={usuario}
               onChangeText={setUsuario}
             />
             <TextInput
               placeholder="Senha"
+              placeholderTextColor="#888888"
               style={styles.input}
               value={senha}
-              keyboardType="numeric"
               onChangeText={setSenha}
               secureTextEntry
             />

@@ -43,7 +43,7 @@ export default StyleSheet.create({
   },
 
   card: {
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#fff',
     margin: 12,
     padding: 15,
     borderRadius: 10,
@@ -53,6 +53,7 @@ export default StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     alignItems: 'center',
+    overflow: 'hidden',
   },
 
   cardText: {
@@ -108,7 +109,9 @@ export default StyleSheet.create({
     width: '100%',
     height: 300,
     resizeMode: 'cover',
-    bottom: 5,
+    borderRadius: 12,
+    marginBottom: 6,  // Adiciona um pequeno espaçamento entre a borda e o conteúdo
+    flex: 1,
     
   },
 
@@ -134,5 +137,41 @@ export default StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
+  },
+  
+  containerLink: {
+    padding: 20,
+  },
+
+  tituloLink: {
+    fontSize: 16,
+    marginBottom: 12,
+    color: "#333",
+    fontWeight: "500",
+  },
+
+  inputLink: {
+    backgroundColor: "#FFF",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: "#DDD",
+    color: "#000",
+  },
+
+  botoesLink: {
+    height: 48,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+
+  textoBotaoLink: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

@@ -9,8 +9,10 @@ import {
   Alert,
   StyleSheet,
 } from 'react-native';
-import styles from './styles';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import styles from './styles';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Linking from 'expo-linking';
@@ -32,12 +34,20 @@ export default function Feed({ route, navigation }) {
       const json = await res.json();
 
       const lista =
-        json.documents?.map((doc) => ({
-          id: doc.name.split('/').pop(),
-          titulo: doc.fields?.titulo?.stringValue ?? 'Sem título',
-          url: doc.fields?.url?.stringValue ?? '',
-          data: doc.fields?.data?.stringValue ?? 'Sem data',
-        })) || [];
+        json.documents?.map((doc) => {
+          // Pegando o timestamp e convertendo para formato legível
+          const dataTimestamp = doc.fields?.data?.timestampValue;
+          const dataFormatada = dataTimestamp
+            ? new Date(dataTimestamp).toLocaleString('pt-BR')
+            : 'Sem data';
+
+          return {
+            id: doc.name.split('/').pop(),
+            titulo: doc.fields?.titulo?.stringValue ?? 'Sem título',
+            url: doc.fields?.url?.stringValue ?? '',
+            data: dataFormatada,
+          };
+        }) || [];
 
       lista.sort((a, b) => new Date(b.data) - new Date(a.data));
       setLinks(lista);
@@ -48,11 +58,13 @@ export default function Feed({ route, navigation }) {
     }
   };
 
-  useEffect(() => {
-    buscarLinks();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      buscarLinks();
+    }, [])
+  );
 
-  // 🔹 APENAS VISUALIZAR NO DRIVE
+
   const visualizarArquivo = async (url) => {
     if (!url) {
       Alert.alert('Link inválido');
@@ -121,16 +133,13 @@ export default function Feed({ route, navigation }) {
 
   const renderLinks = () => (
     <View style={{ margin: 12 }}>
-      <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 8 }}>
-        Materiais
-      </Text>
-
       {loadingLinks ? (
         <Text>Carregando...</Text>
       ) : links.length === 0 ? (
-        <Text style={{ color: '#666' }}>Nenhum material disponível.</Text>
+        <Text style={{ color: '#666' }}>Nenhum Link disponível.</Text>
       ) : (
         links.map((item) => (
+          
           <View
             key={item.id}
             style={{
@@ -138,6 +147,11 @@ export default function Feed({ route, navigation }) {
               padding: 12,
               borderRadius: 10,
               marginBottom: 8,
+              elevation: 2,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.1,
+              shadowRadius: 4,
             }}
           >
             <Text style={{ fontWeight: '600' }}>{item.titulo}</Text>
@@ -178,31 +192,106 @@ export default function Feed({ route, navigation }) {
           keyExtractor={(item) => item.id}
           ListHeaderComponent={renderLinks}
           contentContainerStyle={{ paddingBottom: 120 }}
-          renderItem={({ item }) => (
-            <View style={{ margin: 12 }}>
-              <Image
-                source={{ uri: item.uri }}
-                style={{ width: '100%', height: 300, borderRadius: 12 }}
-              />
-              <Text style={{ marginTop: 6 }}>{item.hora}</Text>
+        />
+
+        <View
+          pointerEvents="box-none"
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            right: 20,
+            alignItems: 'flex-end',
+          }}>
+          {menuVisivel && (
+            <Pressable
+              onPress={() => setMenuVisivel(false)}
+              style={StyleSheet.absoluteFillObject}
+            />
+          )}
+
+          {menuVisivel && (
+            <View
+              style={{
+                marginBottom: 10,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                padding: 8,
+                width: 180,
+                elevation: 6,
+                shadowOffset: 6,
+              }}>
+              {role === 'admin' && (
+                <TouchableOpacity
+                  onPress={() => {
+                    setMenuVisivel(false);
+                    navigation.navigate('pa');
+                  }}
+                  style={{ paddingVertical: 8 }}>
+                  <Text style={{ fontWeight: '600', color: '#222' }}>
+                    Painel Admin
+                  </Text>
+                </TouchableOpacity>
+              )}
 
               <TouchableOpacity
-                onPress={() => curtirFoto(item.id)}
-                style={{ marginTop: 4 }}
-              >
-                <Text>❤️ {item.likes}</Text>
+                onPress={() => {
+                  navigation.navigate('ver');
+                }}
+                style={{ paddingVertical: 8 }}>
+                <Text style={{ fontWeight: '600', color: '#222' }}>
+                  Versiculos
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setMenuVisivel(false);
+                  navigation.navigate('cat');
+                }}
+                style={{ paddingVertical: 8 }}>
+                <Text style={{ fontWeight: '600', color: '#222' }}>
+                  Catequese
+                </Text>
               </TouchableOpacity>
 
               {role === 'admin' && (
-                <TouchableOpacity onPress={() => removerFoto(item.id)}>
-                  <Text style={{ color: 'red' }}>Excluir foto</Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setMenuVisivel(false);
+                  navigation.navigate('link'); 
+                }}
+                style={{ paddingVertical: 8 }}>
+                <Text style={{ fontWeight: '600', color: '#222' }}>
+                  Adicionar Link
+                </Text>
+              </TouchableOpacity>
               )}
             </View>
           )}
-        />
 
-        {/* botão flutuante permanece igual */}
+          <Pressable
+            android_ripple={{ color: '#555', borderless: true }}
+            onPress={() => {
+              setMenuVisivel((v) => !v);
+            }}
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: 28,
+              backgroundColor: '#111',
+              alignItems: 'center',
+              justifyContent: 'center',
+              elevation: 6,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4, 
+            }}>
+            <Text style={{ color: 'white', fontSize: 28, lineHeight: 30 }}>
+              彡
+            </Text>
+          </Pressable>
+        </View>
       </SafeAreaView>
     </SafeAreaProvider>
   );

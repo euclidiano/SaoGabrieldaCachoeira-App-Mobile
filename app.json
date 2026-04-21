@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "saogabrieldacachoeira-v5",
-    "slug": "snack-9b233034-95df-403f-854d-92d3ef6228f7",
+    "name": "paróquia militar",
+    "slug": "snack-0302aa8a-21a0-489b-807a-cddf643a1256",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,14 +20,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.androidgrupo.snack0302aa8a21a0489b807acddf643a1256"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "description": "Projeto de Aplicativo para Capelania Militar São Gabriel da Cachoeira",
-    "plugins": [
-      "expo-font"
-    ]
+    "extra": {
+      "eas": {
+        "projectId": "bc5b23a5-4238-4ce4-bab8-2e66a6a1208b"
+      }
+    }
   }
 }

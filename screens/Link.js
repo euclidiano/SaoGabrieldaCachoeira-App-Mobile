@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import styles from "./styles";
 
 const LINKS_URL =
   'https://firestore.googleapis.com/v1/projects/cmsgc-6b72a/databases/(default)/documents/links';
@@ -38,25 +40,39 @@ export default function Link() {
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text>Título</Text>
-      <TextInput
-        value={titulo}
-        onChangeText={setTitulo}
-      />
+  <SafeAreaProvider>
+    <SafeAreaView style={{ flex: 1 }}>
+       <View style={styles.containerLink}>
+          
+          <TextInput
+            placeholder="Título do link"
+            placeholderTextColor="#888"
+            style={[styles.inputLink, { color: "#000" }]}
+            value={titulo}
+            onChangeText={setTitulo}
+          />
 
-      <Text>URL do Google Drive</Text>
-      <TextInput
-        value={url}
-        onChangeText={setUrl}
-        autoCapitalize="none"
-        autoCorrect={false}
-        keyboardType="url"
-      />
+          <TextInput
+            placeholder="URL do link"
+            placeholderTextColor="#888"
+            style={[styles.inputLink, { color: "#000" }]}
+            value={url}
+            onChangeText={setUrl}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="url"
+          />
 
-      <TouchableOpacity onPress={salvar}>
-        <Text style={{ marginTop: 20 }}>Cadastrar</Text>
-      </TouchableOpacity>
-    </View>
+          <TouchableOpacity
+            onPress={salvar}
+            style={[styles.botoesLink, { backgroundColor: '#2f76fa' }]}
+          >
+            <Text style={styles.textoBotaoLink}>Enviar</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
+
+ 

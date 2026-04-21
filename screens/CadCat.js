@@ -30,6 +30,7 @@ export default function App() {
   const [sacra, setSacra] = useState('');
   const [tef, setTef] = useState('');
   const [idade, setIdade] = useState('');
+  const [mot, setMot] = useState('');
 
   const buscarAlunos = async () => {
     try {
@@ -46,6 +47,8 @@ export default function App() {
           sacra: doc.fields.sacra.stringValue,
           tef: doc.fields.tef.stringValue,
           idade: doc.fields.idade.stringValue,
+          mot: doc.fields.mot.stringValue,
+          
         })) || [];
 
       setAlunos(lista);
@@ -61,7 +64,7 @@ export default function App() {
   }, []);
 
   const adicionarAlunos = async () => {
-    if (!nome || !ddn || !end || !nr || !sacra || !tef || !idade) {
+    if (!nome || !ddn || !end || !nr || !sacra || !tef || !idade || !mot) {
       Alert.alert('Preencha todos os campos!');
       return;
     }
@@ -75,6 +78,7 @@ export default function App() {
         sacra: { stringValue: sacra },
         tef: { stringValue: tef },
         idade: { stringValue: idade },
+        mot: { stringValue: mot },
       },
     };
 
@@ -93,6 +97,7 @@ export default function App() {
         setTef('');
         setIdade('');
         setSacra('');
+        setMot('');
         buscarAlunos();
         Alert.alert('Aluno cadastrado com sucesso!');
       } else {
@@ -124,6 +129,7 @@ export default function App() {
               <TextInput
                 style={styles.input}
                 placeholder="Ex: Alex"
+                placeholderTextColor="#888888"
                 value={nome}
                 onChangeText={setNome}
               />
@@ -135,6 +141,7 @@ export default function App() {
                 value={ddn}
                 keyboardType="numeric"
                 placeholder="Ex: 29/10/2025"
+                placeholderTextColor="#888888"
                 style={styles.input}
               />
 
@@ -142,6 +149,7 @@ export default function App() {
               <TextInput
                 style={styles.input}
                 placeholder="Ex: 10"
+                placeholderTextColor="#888888"
                 value={idade}
                 onChangeText={setIdade}
               />
@@ -150,6 +158,7 @@ export default function App() {
               <TextInput
                 style={styles.input}
                 placeholder="Ex: Pedro, Julia"
+                placeholderTextColor="#888888"
                 value={nr}
                 onChangeText={setNr}
               />
@@ -161,6 +170,7 @@ export default function App() {
                 value={tef}
                 keyboardType="numeric"
                 placeholder="Ex: (99) 99999-9999"
+                placeholderTextColor="#888888"
                 style={styles.input}
               />
 
@@ -168,6 +178,7 @@ export default function App() {
               <TextInput
                 style={styles.input}
                 placeholder="Ex: Rua Caixa Prego, 44"
+                placeholderTextColor="#888888"
                 value={end}
                 onChangeText={setEnd}
               />
@@ -176,8 +187,18 @@ export default function App() {
               <TextInput
                 style={styles.input}
                 placeholder="(batismo, eucaristia, crisma, matrimônio)"
+                placeholderTextColor="#888888"
                 value={sacra}
                 onChangeText={setSacra}
+              />
+
+              <Text>Motivo da inscrição?</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="( catequese, crisma, coroinha e casamento)"
+                placeholderTextColor="#888888"
+                value={mot}
+                onChangeText={setMot}
               />
 
               <TouchableOpacity

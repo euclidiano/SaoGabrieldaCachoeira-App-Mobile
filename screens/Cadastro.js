@@ -106,15 +106,17 @@ export default function Cadastro({ navigation }) {
           <View style={styles.container}>
               <TextInput
                 placeholder="Usuário"
+                placeholderTextColor="#888888"
                 style={styles.input}
                 value={usuario}
                 onChangeText={setUsuario}
               />
               <TextInput
                 placeholder="Senha"
+                placeholderTextColor="#888888"
                 style={styles.input}
                 value={senha}
-                keyboardType="numeric"
+
                 onChangeText={setSenha}
               />
               <TouchableOpacity

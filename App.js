@@ -43,7 +43,7 @@ export default function App() {
         <Stack.Screen
           name="link"
           component={Link}
-          options={{ title: 'Link' }}
+          options={{ title: 'Adicionar Link' }}
         />
         <Stack.Screen
           name="cat"
